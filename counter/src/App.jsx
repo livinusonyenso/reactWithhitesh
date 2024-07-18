@@ -4,26 +4,51 @@ import viteLogo from "/vite.svg";
 import "./App.css";
 
 function App() {
-  // callbacks in setCounter
+
   // setCounter((prevCounter) => prevCounter + 1 )
   const [counter, setCounter] = useState(15);
+  const calculator = new Calculate(counter);
 
   const addValue = () => {
-    setCounter(counter + 1);
+    setCounter(calculator.cal("add"));
   };
 
   const removeValue = () => {
-    setCounter(counter - 1);
+    setCounter(calculator.cal("minus"));
   };
+
+  const reset = () => {
+    setCounter(calculator.cal());
+  };
+
   return (
     <>
       <h1>React Counter with useSate {counter}</h1>
-      <h2>counter value {counter}</h2>
+      <h2 >counter value {counter}</h2>
       <button onClick={addValue}>AddValue</button>
       <button onClick={removeValue}>RemoveValue</button>
-      <p>Footer : {counter}</p>
+      <button onClick={reset}>Reset</button>
+
+
     </>
   );
 }
 
 export default App;
+
+class Calculate {
+  constructor(value) {
+    this.value = value;
+  }
+
+  cal(type) {
+    switch (type) {
+      case "add":
+        return ++this.value;
+      case "minus":
+        return --this.value;
+      default:
+        return 0;
+    }
+  }
+}
